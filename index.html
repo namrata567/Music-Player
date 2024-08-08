@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player | Namrata Saikia</title>
+    <link rel="stylesheet" href="style.css">
+   
+    <script src="https://kit.fontawesome.com/0cb91ed33d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="picture.jpg" alt="" class="song-img">
+            <h1>Cruel Summer</h1>
+            <p>Taylor swift</p>
+
+
+            <audio controls id="song">
+                <source src="Sweethearts - TrackTribe.mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="pg">
+
+            <div class="controls">
+                <div>
+                    <i class="fa-solid fa-backward"></i>
+                </div>
+                <div onclick="Playpause()">
+                    <i class="fa-solid fa-play" id="ctrlIcon"></i>
+                </div>
+                <div>
+                    <i class="fa-solid fa-forward"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+<script >
+    let pg = document.getElementById("pg");
+    let song = document.getElementById("song");
+    let ctrlIcon = document.getElementById("ctrlIcon");
+
+    song.onloadedmetadata = function(){
+        pg.max =song.duration;
+        pg.value =song.currentTime;
+    }
+
+    function Playpause(){
+        if(ctrlIcon.classList.contains("fa-pause")){
+            song.pause();
+            ctrlIcon.classList.remove("fa-pause");
+            ctrlIcon.classList.add("fa-play");
+        }
+        else{
+            song.play();
+            ctrlIcon.classList.add("fa-pause");
+            ctrlIcon.classList.remove("fa-play");
+        }
+        
+    }
+    if(song.play()){
+        setInterval(()=>{
+            pg.value= song.currentTime
+        },500);
+    }
+    pg.onchange =function(){
+        song.play();
+        song.currentTime = pg.value;
+        ctrlIcon.classList.add("fa-pause");
+        ctrlIcon.classList.remove("fa-play");
+    }
+    
+
+</script>
+
+
+</body>
+</html>
